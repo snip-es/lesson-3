@@ -81,7 +81,7 @@ while circle_victory == True:
     circle_answers = True
 
     for composers in shorten_random_composers:
-        user_input_date = str(input(f'Выбран {composers[0]} ведите его год рождения : '))
+        user_input_date = str(input(f'Выбран {composers[0]} введите его год рождения : '))
         if user_input_date == composers[1]:
             print('Верно')
             good_answers += 1
