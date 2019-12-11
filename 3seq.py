@@ -13,6 +13,8 @@ new_list_2 = []
 print('Вы хотите ввести элементы по очередно вручную или сразу готовой строкой? ')
 input_type_check = input('Если поочередно введите: Да, а если в строку введите: Нет ')
 
+fail_input = False  # проверка на ввод
+
 if input_type_check == 'Да' or input_type_check == 'да':
     elements_amount_1 = int(input('Введите количество элементов первого списка '))
     for number in range(elements_amount_1):  # формирование new_list_1 поочередно
@@ -29,13 +31,36 @@ if input_type_check == 'Да' or input_type_check == 'да':
 elif input_type_check == 'Нет' or input_type_check == 'нет':
     new_list_1 = input('Введите цифровые элементы первого списка в строку через запятую: ')
     new_list_1 = new_list_1.split(',')  # формирование new_list_1 строкой
-    print(new_list_1)
+    # print(new_list_1)
     new_list_2 = input('Введите цифровые элементы второго списка в строку через запятую: ')
     new_list_2 = new_list_2.split(',')  # формирование new_list_2 строкой
     # print(new_list_2)
-# Удаление из списка new_list_1 элементы, которые есть в списке new_list_2
-list_result = (sorted(set(new_list_1) - set(new_list_2)))
-# str_result = list(list_result)
-# print(str_result)
-# print(*str_result, sep =', ')
-print('Результат:', ','.join(list_result))  # делаем результат, как в примере
+else:
+    print('Ошиблись с вводом, пожалуйста запустите программу снова')
+    fail_input = True
+
+if fail_input == False:
+    # реализация вычитания list1 - list 2
+    for element in new_list_2:
+        if element in new_list_1:
+            new_list_1.remove(element)
+    print('Вычитание одного из другого(однократное вычитание) ', new_list_1)
+
+    # теперь надо доудалить лишние элементы из new_list_1
+    max_count_element = (
+        max(set(new_list_1), key=new_list_1.count))  # нахождение эелемента, который наиболее часто встречается
+    number_max_count_element = new_list_1.count(
+        max_count_element)  # нахождение количество раз повторений этого элемента
+
+    # будем удалять эти элементы нужное количество раз через цикл for,
+    # цикл while отвечает за количество повторений цикла for
+    while number_max_count_element != 0:
+        for element in new_list_1:
+            if element in new_list_2:
+                new_list_1.remove(element)
+        number_max_count_element -= 1
+
+    print('Полное вычитание одного из другого (вычитание всех элементов из списка 1, которые встречаются в списке 2) ',
+          new_list_1)
+    print('Результат:', ','.join(new_list_1))  # делаем результат, как в примере
+
